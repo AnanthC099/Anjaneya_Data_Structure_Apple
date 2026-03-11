@@ -1,0 +1,4 @@
+# Compiled binaries
+test_nary_tree
+*.o
+*.out
