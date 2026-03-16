@@ -35,11 +35,50 @@ NaryTreeNode *create_node(int val)
 	return temp_node; 
 }
 
+void add_child(NaryTreeNode *parent, NaryTreeNode *child)
+{
+	if (parent->child_count >= parent->child_capacity)
+	{
+		parent->child_capacity = parent->child_capacity * 2;
+		parent->children = (NaryTreeNode**)realloc(parent->children, (parent->child_capacity * sizeof(NaryTreeNode*)));
+		if(parent->children == NULL)
+		{
+			printf("ERROR: malloc failed!\n");
+			exit(MALLOC_FAILED_MACRO);
+		}
+	}
+	parent->children[parent->child_count++] = child;
+}
+
+NaryTreeNode *build_example_tree(void)
+{
+	NaryTreeNode *n1  = create_node(1);
+    NaryTreeNode *n2  = create_node(2);
+    NaryTreeNode *n3  = create_node(3);
+    NaryTreeNode *n4  = create_node(4);
+    NaryTreeNode *n5  = create_node(5);
+    NaryTreeNode *n6  = create_node(6);
+    NaryTreeNode *n7  = create_node(7);
+    NaryTreeNode *n8  = create_node(8);
+    NaryTreeNode *n9  = create_node(9);
+    NaryTreeNode *n10 = create_node(10);
+	
+	add_child(n1, n2);
+	add_child(n1, n3);
+	add_child(n1, n4);
+	
+    add_child(n2, n5);
+	add_child(n2, n6);
+	add_child(n2, n7);
+    
+	add_child(n6, n10);
+    add_child(n4, n8);
+	add_child(n4, n9);
+}
+
 int main()
 {
-	NaryTreeNode *n1 = create_node(1);
-	NaryTreeNode *n2 = create_node(2);
-	NaryTreeNode *n3 = create_node(3);
+	NaryTreeNode *root = build_example_tree();
 	return 0;
 }
 
